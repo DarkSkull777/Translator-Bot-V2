@@ -54,8 +54,8 @@ HELP_BUTTONS = InlineKeyboardMarkup(
     )
 ABOUT_BUTTONS = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('Channel', url='https://telegram.me/FayasNoushad'),
-        InlineKeyboardButton('Feedback', url='https://telegram.me/TheFayas')
+        InlineKeyboardButton('Channel', url='https://telegram.me/hanyabotferi'),
+        InlineKeyboardButton('Support', url='https://telegram.me/AnosSupport')
         ],[
         InlineKeyboardButton('Home', callback_data='home'),
         InlineKeyboardButton('Help', callback_data='help'),
@@ -69,7 +69,7 @@ CLOSE_BUTTON = InlineKeyboardMarkup(
     )
 TRANSLATE_BUTTON = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('⚙ Join Updates Channel ⚙', url='https://telegram.me/FayasNoushad')
+        InlineKeyboardButton('⚙ Website ⚙', url='https://darkskull7.my.to')
         ]]
     )
 LANGUAGE_BUTTONS = InlineKeyboardMarkup(
