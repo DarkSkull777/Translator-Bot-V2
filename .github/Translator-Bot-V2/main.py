@@ -11,32 +11,30 @@ from googletrans import Translator
 
 FayasNoushad = Client(
     "Translator Bot",
-    BOT_TOKEN = os.environ["BOT_TOKEN"],
-    API_ID = int(os.environ["API_ID"]),
-    API_HASH = os.environ["API_HASH"]
+    bot_token = os.environ["BOT_TOKEN"],
+    api_id = int(os.environ["API_ID"]),
+    api_hash = os.environ["API_HASH"]
 )
 
 START_TEXT = """
-Hai {}, Aku adalah bot translate yang dapat membantu anda dalam menerjemahkan teks.
+Hello {}, I am a google translator telegram bot.
 
 Made by @xskull7
 """
 HELP_TEXT = """
-**Bagaimana cara Translate nya???**
-
-1. Kamu tinggal kirim pesan yang ingin saya terjemahkan
-2. Setelah itu akan ada daftar bahasa, kamu tinggal klik bahasa yang kamu mau translate
-Contoh: aku ngirim pesan pakai bahasa indo, nanti bot nya akan menampilkan daftar bahasa
-kemudian aku pilih english karena aku ingin terjemahkan dari Indonesian ke English
+- Just send a text with language code
+- And select a language for translating
 
 Made by @xskull7
 """
 ABOUT_TEXT = """
-- **Bot :** `Dimas Translate Bot`
-- **Owner :** [Dimassrmdani](https://telegram.me/xskull7)
-- **Channel :** [Friends](https://telegram.me/hanyabotferi)
-- **Website :** [DarkSkull7 Site](https://darkskull7.my.to)
-- **Blog :** [Python3](https://darkskull7.blogspot.com)
+- **Bot :** `Translator Bot V2`
+- **Creator :** [Dimassrmdani](https://telegram.me/xskull7)
+- **Channel :** [Dimassrmdani](https://telegram.me/xskull7)
+- **Source :** [Click here](https://github.com/xskull7/Translator-Bot-V2)
+- **Language :** [Python3](https://python.org)
+- **Library :** [Pyrogram](https://pyrogram.org)
+- **Server :** [Heroku](https://heroku.com)
 """
 START_BUTTONS = InlineKeyboardMarkup(
         [[
@@ -54,8 +52,8 @@ HELP_BUTTONS = InlineKeyboardMarkup(
     )
 ABOUT_BUTTONS = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('Channel', url='https://telegram.me/hanyabotferi'),
-        InlineKeyboardButton('Support', url='https://telegram.me/AnosSupport')
+        InlineKeyboardButton('Channel', url='https://telegram.me/xskull7'),
+        InlineKeyboardButton('Feedback', url='https://telegram.me/xskull7')
         ],[
         InlineKeyboardButton('Home', callback_data='home'),
         InlineKeyboardButton('Help', callback_data='help'),
@@ -69,37 +67,33 @@ CLOSE_BUTTON = InlineKeyboardMarkup(
     )
 TRANSLATE_BUTTON = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('⚙ Website ⚙', url='https://darkskull7.my.to')
+        InlineKeyboardButton('⚙ Join Updates Channel ⚙', url='https://telegram.me/xskull7')
         ]]
     )
 LANGUAGE_BUTTONS = InlineKeyboardMarkup(
     [[
-    InlineKeyboardButton("Malayam", callback_data="Malayalam"),
-    InlineKeyboardButton("Tamil", callback_data="Tamil"),
-    InlineKeyboardButton("Hindi", callback_data="Hindi")
+    InlineKeyboardButton("മലയാളം", callback_data="Malayalam"),
+    InlineKeyboardButton("தமிழ்", callback_data="Tamil"),
+    InlineKeyboardButton("हिन्दी", callback_data="Hindi")
     ],[
-    InlineKeyboardButton("Kannada", callback_data="Kannada"),
-    InlineKeyboardButton("Telugu", callback_data="Telugu"),
-    InlineKeyboardButton("Marathi", callback_data="Marathi")
+    InlineKeyboardButton("ಕನ್ನಡ", callback_data="Kannada"),
+    InlineKeyboardButton("తెలుగు", callback_data="Telugu"),
+    InlineKeyboardButton("मराठी", callback_data="Marathi")
     ],[
-    InlineKeyboardButton("Gujarat", callback_data="Gujarati"),
-    InlineKeyboardButton("Oriya", callback_data="Odia"),
-    InlineKeyboardButton("Benggala", callback_data="bn")
+    InlineKeyboardButton("ગુજરાતી", callback_data="Gujarati"),
+    InlineKeyboardButton("ଓଡ଼ିଆ", callback_data="Odia"),
+    InlineKeyboardButton("বাংলা", callback_data="bn")
     ],[
-    InlineKeyboardButton("Jerman", callback_data="German"),
-    InlineKeyboardButton("Vietnam", callback_data="Vietnamese"),
-    InlineKeyboardButton("Jepang", callback_data="Japanese")
-    ],[
-    InlineKeyboardButton("Punjabi", callback_data="Punjabi"),
-    InlineKeyboardButton("Persia", callback_data="Persian"),
+    InlineKeyboardButton("ਪੰਜਾਬੀ", callback_data="Punjabi"),
+    InlineKeyboardButton("فارسی", callback_data="Persian"),
     InlineKeyboardButton("English", callback_data="English")
     ],[
-    InlineKeyboardButton("Spanyol", callback_data="Spanish"),
-    InlineKeyboardButton("Prancis", callback_data="French"),
-    InlineKeyboardButton("Rusia", callback_data="Russian")
+    InlineKeyboardButton("español", callback_data="Spanish"),
+    InlineKeyboardButton("français", callback_data="French"),
+    InlineKeyboardButton("русский", callback_data="Russian")
     ],[
-    InlineKeyboardButton("Abrit", callback_data="hebrew"),
-    InlineKeyboardButton("Indonesia", callback_data="Indonesian")
+    InlineKeyboardButton("עִברִית", callback_data="hebrew"),
+    InlineKeyboardButton("العربية", callback_data="arabic")
     ]]
 )
 
@@ -126,13 +120,13 @@ async def cb_data(bot, update):
     elif update.data == "close":
         await update.message.delete()
     else:
-        message = await update.message.edit_text("`MenTerjemahkan...`")
+        message = await update.message.edit_text("`Translating...`")
         text = update.message.reply_to_message.text
         language = update.data
         translator = Translator()
         try:
             translate = translator.translate(text, dest=language)
-            translate_text = f"**Diterjemahkan ke {language}**"
+            translate_text = f"**Translated to {language}**"
             translate_text += f"\n\n{translate.text}"
             if len(translate_text) < 4096:
                 translate_text += "\n\nMade by @xskull7"
@@ -152,7 +146,7 @@ async def cb_data(bot, update):
                 await message.delete()
         except Exception as error:
             print(error)
-            await message.edit_text("Sesuatu yang salah. Kontak @xskull7.")
+            await message.edit_text("Something wrong. Contact @xskull7.")
 
 @FayasNoushad.on_message(filters.command(["start"]))
 async def start(bot, update):
@@ -167,7 +161,7 @@ async def start(bot, update):
 @FayasNoushad.on_message(filters.private & filters.text)
 async def translate(bot, update):
     await update.reply_text(
-        text="Pilih bahasa di bawah ini untuk diterjemahkan",
+        text="Select a language below for translating",
         disable_web_page_preview=True,
         reply_markup=LANGUAGE_BUTTONS,
         quote=True
