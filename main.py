@@ -93,7 +93,7 @@ LANGUAGE_BUTTONS = InlineKeyboardMarkup(
     InlineKeyboardButton("русский", callback_data="Russian")
     ],[
     InlineKeyboardButton("עִברִית", callback_data="hebrew"),
-    InlineKeyboardButton("العربية", callback_data="arabic")
+    InlineKeyboardButton("Indonesia", callback_data="Indonesian")
     ]]
 )
 
